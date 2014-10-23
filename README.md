@@ -32,5 +32,6 @@ Time Wars
 * Database integration ( SQLite ? )
 * Hall of fame
 * Random Races&Classes attribution at the spawn
+* Guild System
 * A lot of fixes
 * Full cleaning of the code
