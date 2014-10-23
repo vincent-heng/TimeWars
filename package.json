@@ -1,0 +1,19 @@
+{
+    "name": "timewars",
+    "version": "0.1.0",
+    "dependencies": {
+            "express": "~3.2",
+            "ejs": "~0.8",
+			"socket.io": "~1",
+			"ent": "~2.0",
+			"underscore": "~1.6",
+			"mocha": "~1.21",
+			"cradle": "~0",
+			"findit": "~1",
+			"minimist":"~0",
+			"xml2js":"~0"
+    },
+	"author": "Cartesianfox",
+	"description": "Un minijeu très simple basé sur la fuite du temps."
+
+}
