@@ -33,5 +33,7 @@ Time Wars
 * Hall of fame
 * Random Races&Classes attribution at the spawn
 * Guild System
+* Random Spawning monsters
+* Random Events
 * A lot of fixes
 * Full cleaning of the code
