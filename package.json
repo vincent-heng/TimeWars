@@ -11,9 +11,10 @@
 			"cradle": "~0",
 			"findit": "~1",
 			"minimist":"~0",
-			"xml2js":"~0"
+			"xml2js":"~0",
+			"bootstrap":"~0"
     },
 	"author": "Cartesianfox",
-	"description": "Un minijeu très simple basé sur la fuite du temps."
+	"description": "A little game based on the time."
 
 }
