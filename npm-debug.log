@@ -1,21 +1,172 @@
 0 info it worked if it ends with ok
 1 verbose cli [ 'F:\\Programmes\\nodejs\\\\node.exe',
 1 verbose cli   'F:\\Programmes\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
-1 verbose cli   'install',
-1 verbose cli   'express' ]
+1 verbose cli   'install' ]
 2 info using npm@1.4.28
 3 info using node@v0.10.32
 4 verbose node symlink F:\Programmes\nodejs\\node.exe
-5 error Error: ENOENT, stat 'C:\Users\Vincent\AppData\Roaming\npm'
-6 error If you need help, you may report this *entire* log,
-6 error including the npm and node versions, at:
-6 error     <http://github.com/npm/npm/issues>
-7 error System Windows_NT 6.2.9200
-8 error command "F:\\Programmes\\nodejs\\\\node.exe" "F:\\Programmes\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "express"
-9 error cwd F:\Documents\Programmation\GitHub\nodejs
-10 error node -v v0.10.32
-11 error npm -v 1.4.28
-12 error path C:\Users\Vincent\AppData\Roaming\npm
-13 error code ENOENT
-14 error errno 34
-15 verbose exit [ 34, true ]
+5 warn package.json timewars@0.1.0 No repository field.
+6 verbose readDependencies using package.json deps
+7 verbose install where, deps [ 'F:\\Documents\\Programmation\\GitHub\\nodejs',
+7 verbose install   [ 'express',
+7 verbose install     'ejs',
+7 verbose install     'socket.io',
+7 verbose install     'ent',
+7 verbose install     'underscore',
+7 verbose install     'mocha',
+7 verbose install     'cradle',
+7 verbose install     'findit',
+7 verbose install     'minimist',
+7 verbose install     'xml2js',
+7 verbose install     'bootstrap',
+7 verbose install     'twitter-bootstrap',
+7 verbose install     'normalize.css',
+7 verbose install     'jade',
+7 verbose install     'grunt' ] ]
+8 info preinstall timewars@0.1.0
+9 warn package.json cradle@0.6.7 No repository field.
+10 verbose readDependencies using package.json deps
+11 verbose already installed skipping express@~3.2 F:\Documents\Programmation\GitHub\nodejs
+12 verbose already installed skipping ejs@~0.8 F:\Documents\Programmation\GitHub\nodejs
+13 verbose already installed skipping socket.io@~1 F:\Documents\Programmation\GitHub\nodejs
+14 verbose already installed skipping ent@~2.0 F:\Documents\Programmation\GitHub\nodejs
+15 verbose already installed skipping underscore@~1.6 F:\Documents\Programmation\GitHub\nodejs
+16 verbose already installed skipping mocha@~1.21 F:\Documents\Programmation\GitHub\nodejs
+17 verbose already installed skipping cradle@~0 F:\Documents\Programmation\GitHub\nodejs
+18 verbose already installed skipping findit@~1 F:\Documents\Programmation\GitHub\nodejs
+19 verbose already installed skipping minimist@~0 F:\Documents\Programmation\GitHub\nodejs
+20 verbose already installed skipping xml2js@~0 F:\Documents\Programmation\GitHub\nodejs
+21 verbose already installed skipping bootstrap@~0 F:\Documents\Programmation\GitHub\nodejs
+22 verbose already installed skipping twitter-bootstrap@~2.1 F:\Documents\Programmation\GitHub\nodejs
+23 verbose already installed skipping normalize.css@~3.0 F:\Documents\Programmation\GitHub\nodejs
+24 verbose already installed skipping jade@~0 F:\Documents\Programmation\GitHub\nodejs
+25 verbose cache add [ 'grunt@~1', null ]
+26 verbose cache add name=undefined spec="grunt@~1" args=["grunt@~1",null]
+27 verbose parsed url { protocol: null,
+27 verbose parsed url   slashes: null,
+27 verbose parsed url   auth: null,
+27 verbose parsed url   host: null,
+27 verbose parsed url   port: null,
+27 verbose parsed url   hostname: null,
+27 verbose parsed url   hash: null,
+27 verbose parsed url   search: null,
+27 verbose parsed url   query: null,
+27 verbose parsed url   pathname: 'grunt@~1',
+27 verbose parsed url   path: 'grunt@~1',
+27 verbose parsed url   href: 'grunt@~1' }
+28 verbose cache add name="grunt" spec="~1" args=["grunt","~1"]
+29 verbose parsed url { protocol: null,
+29 verbose parsed url   slashes: null,
+29 verbose parsed url   auth: null,
+29 verbose parsed url   host: null,
+29 verbose parsed url   port: null,
+29 verbose parsed url   hostname: null,
+29 verbose parsed url   hash: null,
+29 verbose parsed url   search: null,
+29 verbose parsed url   query: null,
+29 verbose parsed url   pathname: '~1',
+29 verbose parsed url   path: '~1',
+29 verbose parsed url   href: '~1' }
+30 verbose addNamed [ 'grunt', '~1' ]
+31 verbose addNamed [ null, '>=1.0.0-0 <2.0.0-0' ]
+32 silly lockFile 4d00b73e-grunt-1 grunt@~1
+33 verbose lock grunt@~1 C:\Users\Vincent\AppData\Roaming\npm-cache\4d00b73e-grunt-1.lock
+34 silly addNameRange { name: 'grunt', range: '>=1.0.0-0 <2.0.0-0', hasData: false }
+35 verbose request where is /grunt
+36 verbose request registry https://registry.npmjs.org/
+37 verbose request id 07a8d20771fbeabb
+38 verbose url raw /grunt
+39 verbose url resolving [ 'https://registry.npmjs.org/', './grunt' ]
+40 verbose url resolved https://registry.npmjs.org/grunt
+41 verbose request where is https://registry.npmjs.org/grunt
+42 info trying registry request attempt 1 at 20:20:58
+43 http GET https://registry.npmjs.org/grunt
+44 http 200 https://registry.npmjs.org/grunt
+45 silly registry.get cb [ 200,
+45 silly registry.get   { date: 'Fri, 24 Oct 2014 18:20:57 GMT',
+45 silly registry.get     server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+45 silly registry.get     etag: '"DAUB00F29JPG5WFVJCTW8I7YW"',
+45 silly registry.get     'content-type': 'application/json',
+45 silly registry.get     'cache-control': 'max-age=60',
+45 silly registry.get     'content-length': '87161',
+45 silly registry.get     'accept-ranges': 'bytes',
+45 silly registry.get     via: '1.1 varnish',
+45 silly registry.get     age: '0',
+45 silly registry.get     'x-served-by': 'cache-fra1236-FRA',
+45 silly registry.get     'x-cache': 'HIT',
+45 silly registry.get     'x-cache-hits': '1',
+45 silly registry.get     'x-timer': 'S1414174856.516196,VS0,VE713',
+45 silly registry.get     vary: 'Accept',
+45 silly registry.get     'keep-alive': 'timeout=10, max=50',
+45 silly registry.get     connection: 'Keep-Alive' } ]
+46 silly addNameRange number 2 { name: 'grunt', range: '>=1.0.0-0 <2.0.0-0', hasData: true }
+47 silly addNameRange versions [ 'grunt',
+47 silly addNameRange   [ '0.1.0',
+47 silly addNameRange     '0.1.1',
+47 silly addNameRange     '0.1.2',
+47 silly addNameRange     '0.2.0',
+47 silly addNameRange     '0.2.1',
+47 silly addNameRange     '0.2.2',
+47 silly addNameRange     '0.2.3',
+47 silly addNameRange     '0.2.4',
+47 silly addNameRange     '0.2.5',
+47 silly addNameRange     '0.2.6',
+47 silly addNameRange     '0.2.7',
+47 silly addNameRange     '0.2.8',
+47 silly addNameRange     '0.2.9',
+47 silly addNameRange     '0.2.10',
+47 silly addNameRange     '0.2.11',
+47 silly addNameRange     '0.2.12',
+47 silly addNameRange     '0.2.13',
+47 silly addNameRange     '0.2.14',
+47 silly addNameRange     '0.2.15',
+47 silly addNameRange     '0.3.0',
+47 silly addNameRange     '0.3.1',
+47 silly addNameRange     '0.3.2',
+47 silly addNameRange     '0.3.3',
+47 silly addNameRange     '0.3.4',
+47 silly addNameRange     '0.3.5',
+47 silly addNameRange     '0.3.6',
+47 silly addNameRange     '0.3.7',
+47 silly addNameRange     '0.3.8',
+47 silly addNameRange     '0.3.9',
+47 silly addNameRange     '0.3.10',
+47 silly addNameRange     '0.3.11',
+47 silly addNameRange     '0.3.12',
+47 silly addNameRange     '0.3.13',
+47 silly addNameRange     '0.3.14',
+47 silly addNameRange     '0.3.15',
+47 silly addNameRange     '0.3.16',
+47 silly addNameRange     '0.3.17',
+47 silly addNameRange     '0.4.0',
+47 silly addNameRange     '0.4.1',
+47 silly addNameRange     '0.4.2',
+47 silly addNameRange     '0.4.3',
+47 silly addNameRange     '0.4.4',
+47 silly addNameRange     '0.4.5',
+47 silly addNameRange     '0.3.13-a',
+47 silly addNameRange     '0.4.0-a',
+47 silly addNameRange     '0.4.0-rc1',
+47 silly addNameRange     '0.4.0-rc2',
+47 silly addNameRange     '0.4.0-rc3',
+47 silly addNameRange     '0.4.0-rc4',
+47 silly addNameRange     '0.4.0-rc5',
+47 silly addNameRange     '0.4.0-rc6',
+47 silly addNameRange     '0.4.0-rc7',
+47 silly addNameRange     '0.4.0-rc8' ] ]
+48 silly lockFile 4d00b73e-grunt-1 grunt@~1
+49 silly lockFile 4d00b73e-grunt-1 grunt@~1
+50 error notarget No compatible version found: grunt@'>=1.0.0-0 <2.0.0-0'
+50 error notarget Valid install targets:
+50 error notarget ["0.1.0","0.1.1","0.1.2","0.2.0","0.2.1","0.2.2","0.2.3","0.2.4","0.2.5","0.2.6","0.2.7","0.2.8","0.2.9","0.2.10","0.2.11","0.2.12","0.2.13","0.2.14","0.2.15","0.3.0","0.3.1","0.3.2","0.3.3","0.3.4","0.3.5","0.3.6","0.3.7","0.3.8","0.3.9","0.3.10","0.3.11","0.3.12","0.3.13","0.3.14","0.3.15","0.3.16","0.3.17","0.4.0","0.4.1","0.4.2","0.4.3","0.4.4","0.4.5","0.3.13-a","0.4.0-a","0.4.0-rc1","0.4.0-rc2","0.4.0-rc3","0.4.0-rc4","0.4.0-rc5","0.4.0-rc6","0.4.0-rc7","0.4.0-rc8"]
+50 error notarget
+50 error notarget This is most likely not a problem with npm itself.
+50 error notarget In most cases you or one of your dependencies are requesting
+50 error notarget a package version that doesn't exist.
+51 error System Windows_NT 6.2.9200
+52 error command "F:\\Programmes\\nodejs\\\\node.exe" "F:\\Programmes\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install"
+53 error cwd F:\Documents\Programmation\GitHub\nodejs
+54 error node -v v0.10.32
+55 error npm -v 1.4.28
+56 error code ETARGET
+57 verbose exit [ 1, true ]

@@ -12,7 +12,13 @@
 			"findit": "~1",
 			"minimist":"~0",
 			"xml2js":"~0",
-			"bootstrap":"~0"
+			"bootstrap":"~0",
+			"twitter-bootstrap":"~2.1",
+			"angular-bootstrap":"~0",
+			"normalize.css":"~3.0",
+			"jade":"~0",
+			"grunt":"~0"
+
     },
 	"author": "Cartesianfox",
 	"description": "A little game based on the time."

@@ -9,6 +9,8 @@ var EventEmitter = require('events').EventEmitter;
 var url = require('url');
 var querystring = require('querystring');
 
+var path = require('path');
+
 /* Constantes de jeu */
 var lifeTime = 20; // en secondes
 var nbCellules = 25; // 5x5
@@ -46,7 +48,9 @@ app.get('/', function (req, res) {
   res.sendfile(__dirname + '/index.html');
 });
 
-
+app.get('/design/style.css', function (req, res) {
+  res.sendfile(__dirname + '/design/style.css');
+});
 
 
 // Quand un client se connecte, on établit une connexion sockets

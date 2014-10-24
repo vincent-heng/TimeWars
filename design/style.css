@@ -1,0 +1,95 @@
+<style>
+
+	h1{
+		overflow: hidden;
+		width: 530px;
+	}
+
+	td{
+		width: 100px;
+		height: 60px;
+		max-width: 100px;
+		max-height: 60px;
+		overflow:hidden;
+
+		border-width : 1px;
+		border-style : solid;
+		border-color : black;
+	}
+	
+	#consolebox{
+		height: 250px;
+		width: 530px;
+		overflow-y:scroll;
+		overflow-x:hidden;
+	}
+	
+	#right_panel{
+		width: 400px;
+		float: right;
+		position: relative;
+		right: 0px;
+	}
+	
+	#version{
+		position : absolute;
+		left: -20px;
+		top:20px;
+		
+		padding: 0px 40px 0px 40px;
+		
+		text-shadow : 0px 1px 0px rgba(255,255,255,0.2);
+		
+		background: rgb(81, 195, 250);
+		background: -moz-linear-gradient(center top , rgb(244,244,244), rgb(204, 204, 204)) repeat scroll 0% 0% transparent;
+		background:-webkit-gradient(linear,left top,left bottom,from(#51c3fa),to(#09c));
+		-webkit-box-shadow:1px 1px 1px;
+		   -moz-box-shadow:1px 1px 1px;
+				box-shadow:1px 1px 5px;
+		
+		transform: rotate(-40deg);
+		-moz-transform:rotate(-40deg);
+		-webkit-transform:rotate(-40deg);
+		-o-transform:rotate(-40deg);
+		
+	}
+	
+	html{
+		margin:auto;
+		width: 1000px;
+	}
+
+
+
+
+
+	html{
+		font-weight: 500;
+		line-height: 1;
+		font-family : "Gotham Narrow SSm",sans-serif,Arial;
+		min-height: 100%;
+	}
+	
+	body{
+		min-height: 100%;
+	}
+	
+	h1{
+		font-size : 2.2em;
+	}
+	
+	td{
+		font-size: 15px;
+	}
+	
+	#consolebox{
+		width: 515px;
+		padding-left:15px;
+		background: #f1f1f9;
+	}
+	
+	#right_panel{
+		min-height:100%;
+	}
+
+</style>
