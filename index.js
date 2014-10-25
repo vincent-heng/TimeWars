@@ -79,6 +79,13 @@ app.get('/design/style.css', function (req, res) {
   res.sendfile(__dirname + '/design/style.css');
 });
 
+// Load socket.io
+app.get('/socket.io/socket.io.js', function (req, res) {
+  res.sendfile(__dirname + '/socket.io/socket.io.js');
+});
+
+
+
 
 
 
