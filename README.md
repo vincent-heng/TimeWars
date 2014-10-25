@@ -30,10 +30,15 @@ Time Wars
 # <a name="todo"></a>To-do list
 
 * Database integration ( SQLite ? )
-* Hall of fame
+* Graphical Lifebar integration instead of textual lifebar
+* Hall of fame Page
+* Rules, about Pages
+* administration and events Page
+* pop-ups enhancement ( alert() => bootstrap modals )
 * Random Races&Classes attribution at the spawn
 * Guild System
 * Random Spawning monsters
 * Random Events
 * A lot of fixes
+* Overstep maximum amount of players fix
 * Full cleaning of the code

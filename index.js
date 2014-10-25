@@ -8,22 +8,25 @@ var ent = require('ent'); // équivalent de htmlentities
 var EventEmitter = require('events').EventEmitter;
 var url = require('url');
 var querystring = require('querystring');
-
+var colors = require('colors');
 var path = require('path');
 
-/* Constantes de jeu */
-var lifeTime = 20; // en secondes
-var nbCellules = 49; // 7x7
+/* Game Constants */
+var lifeTime = 100; // Amount of life at spawn
+var nbCells = 49; // 7x7
+var decreasingLifeFrequency = 4; // in seconds. Each (decreasingLifeFrequency) seconds, players lost 1 HP.
 
-/* Variables de jeu */
+/* Game variables */
 var nbJoueurs = 0;
 var joueurs = {};
 
-/*POUR LES TEST : des mobs de départ
+
+/*TEST ONLY : Some monsters
+
 joueurs[2] =
 {
 	pseudo: "Scarabeille",
-	life: lifeTime,
+	life: lifeTime*3,
 	nature: "MONSTER",
 	score: 10
 };
@@ -32,88 +35,113 @@ joueurs[2] =
 joueurs[24] =
 {
 	pseudo: "Testifox",
-	life: lifeTime,
+	life: lifeTime*5,
 	nature: "MONSTER",
 	score: 10
 };
+
+joueurs[44] =
+{
+	pseudo: "Babyfox",
+	life: lifeTime/2,
+	nature: "MONSTER",
+	score: 10
+};
+
 */
 
 
 
-console.log("Starting the server...");
+colors.setTheme({
+  silly: 'rainbow',
+  input: 'grey',
+  verbose: 'cyan',
+  prompt: 'grey',
+  info: 'green',
+  data: 'grey',
+  help: 'cyan',
+  warn: 'yellow',
+  debug: 'blue',
+  error: 'red'
+});
 
 
-// Chargement de la page index.html
+console.log("Starting the server...".info);
+
+
+// Load the main page
 app.get('/', function (req, res) {
   res.sendfile(__dirname + '/index.html');
 });
 
+// Load CSS
 app.get('/design/style.css', function (req, res) {
   res.sendfile(__dirname + '/design/style.css');
 });
 
 
-// Quand un client se connecte, on établit une connexion sockets
+
+
+
+// Player connection
 io.sockets.on('connection', function (socket) {
     /*console.log('New Client Connection'); DEBUG */
 	
-	/* Un client choisit un pseudo, il devient joueur
-	Il faut en avertir les autres ( log + position sur map )
-	Il faut l'enregistrer chez nous, sous id, pseudo, points de vie.
-	Il faut qu'il charge la position de tout le monde
+	/* Player's connection :
+	Event for the other players ( log + position on the map )
+	Save in the server, ID, nickname, life, and score
+	Event for the new player
 	*/
-	socket.on('player_authentication', function (pseudo_choisi) {
+	socket.on('player_authentication', function (chosenNickname) {
 
-		if(pseudo_choisi == null)
+		if(chosenNickname == null)
 		{
-			pseudo_choisi = "Anonymous";
+			chosenNickname = "Anonymous";
 		}
 
-		pseudo_choisi = ent.encode(pseudo_choisi);
+		chosenNickname = ent.encode(chosenNickname);
 	
-		if(pseudo_choisi.length==0)
+		if(chosenNickname.length==0)
 		{
-			pseudo_choisi="Anonymous";
+			chosenNickname="Anonymous";
 		}
-		else if(pseudo_choisi.length > 17 )
+		else if(chosenNickname.length > 14 )
 		{
-			pseudo_choisi = pseudo_choisi.substring(0,17);
+			chosenNickname = chosenNickname.substring(0,14);
 		}
 		
-		console.log('Player Authentication : ' + pseudo_choisi);
+		console.log('Player Authentication : ' + chosenNickname);
 		
-		// Modele : 	joueurs[id][pseudo]
-		// 				joueurs[id][life]
 		
 		var i = 0;
-		while(i < nbCellules && (joueurs[i]!=undefined))
+		while(i < nbCells && (joueurs[i]!=undefined))
 		{
 			i++;
 		}
 		
 		joueurs[i] =
 		{
-			pseudo: pseudo_choisi,
+			pseudo: chosenNickname,
 			life: lifeTime,
 			nature: "PLAYER",
 			score: 0
 		};
 		
-		/* DEBUG 
-		console.log("Etat actuel de la partie : ");
+		/*
+		console.log("Current situation : ".debug);
 		console.log(joueurs);
 		*/
 		
 		
 		nbJoueurs++;
-		console.log('Nombre de Joueurs actuel : ' + nbJoueurs);
+		console.log(('Current number of players : ' + nbJoueurs).data);
 		
 		
 		
-		// Mise à jour du joueur
+		// Event for the new player
 		socket.cellule = i;
-		socket.pseudo = pseudo_choisi;
-		socket.emit('message', "Bienvenue dans l'arène, "+pseudo_choisi+".");
+		socket.pseudo = chosenNickname;
+		socket.emit('message', "Welcome to the Arena, "+chosenNickname+".");
 		socket.emit('player_created', {
 			cellule: i,
 			moi: joueurs[i]
@@ -123,29 +151,27 @@ io.sockets.on('connection', function (socket) {
 		
 		
 		
-		// Mise à jour des autres joueurs
-		//socket.broadcast.emit('message', cellule, pseudo_choisi+" est entre dans l'arene.");
+		// Event for the other players ( log + position on the map )
 		socket.broadcast.emit('new_ennemi',{
 			cellule: i,
 			ennemi: joueurs[i]
 		});
 		
-		// pour perdre 1 point de vie par seconde, utiliser setInterval(callback,delay,[arg]) Voir : nodejs.org/api/timers.html
+		// Setting the Life Timer
 		socket.timer = setInterval(function(){
 			if(joueurs[i]!=undefined)
 			{
-				joueurs[i].life--; // On perd un point de vie par seconde
+				joueurs[i].life--;
 				socket.emit('refresh_ennemi',{
 					cellule: i,
 					ennemi: joueurs[i]
-				});				
+				});	
 				
 				socket.broadcast.emit('refresh_ennemi',{
 					cellule: i,
 					ennemi: joueurs[i]
 				});
 				
-				// On gagne un point de score régulièrement
 				joueurs[i].score+= 1;
 				refresh_score();
 				
@@ -159,44 +185,32 @@ io.sockets.on('connection', function (socket) {
 			{
 				clearInterval(socket.timer);
 			}
-		},4000);
-		// 					*/
+		},decreasingLifeFrequency*1000);
 	});		
 
 	
-	/* Le joueur attaque sa cible	
-	Il faut vérifier la présence du joueur
-	Il faut soustraire les points de vie aux deux joueurs
-	Augmenter le score
-	Déconnecter le mort
-	Faire un retour à tout le monde
-	*/
+	/* When a player shoots */
 	socket.on('attack', function(target){
+	
+		// Is the target valid ?
 		if(joueurs[target]==undefined)
 		{
-			socket.emit('message', "Il n'y a rien à détruire dans la cellule "+target+".");
+			socket.emit('message', "There is nothing to destroy in the cell "+target+".");
 		}
 		else if(target==socket.cellule)
 		{
-			socket.emit('message', "Se frapper soi-même ? Ce n'est pas raisonnable !");
+			socket.emit('message', " Shoot yourself ? That is not reasonnable !");
 		}
 		else if(joueurs[socket.cellule]==undefined)
 		{
-			socket.emit('message',"Trop tard.");
+			socket.emit('message',"Too late. You are already dead.");
 		}
 		else if(joueurs[socket.cellule].life<=1)
 		{
-			socket.emit('message',"Pas assez d'énergie !");
+			socket.emit('message',"Not enough life to fight !");
 		}
 		else
 		{
-			
-			/* Algorithme d'attaque :
-				La moitié de ses points de vie en dégâts
-				On perd la moitié de ses points de vie
-				On gagne des points
-				Si ça tue la cible, on gagne encore plus de points
-			*/
 			
 			var damage = parseInt(joueurs[socket.cellule].life/2);
 			joueurs[target].life -= damage;
@@ -205,7 +219,7 @@ io.sockets.on('connection', function (socket) {
 			joueurs[socket.cellule].score += 2;
 			refresh_score();
 
-			socket.emit('message', "Missile temporel sur "+joueurs[target].pseudo+" pour "+damage+" plasmannées.");
+			socket.emit('message', "Time-Missile bursts against "+joueurs[target].pseudo+" for "+damage+" plasma-year.");
 			
 			socket.broadcast.emit('get_hit',{
 				cible:joueurs[target].pseudo, // pseudo
@@ -233,9 +247,9 @@ io.sockets.on('connection', function (socket) {
 				ennemi: joueurs[socket.cellule]
 			});
 			
-			console.log(joueurs[socket.cellule].pseudo+" hits "+ joueurs[target].pseudo+ " for "+ damage +" plasma-year.");
+			console.log((joueurs[socket.cellule].pseudo+" hits "+ joueurs[target].pseudo+ " for "+ damage +" plasma-year.").info);
 		
-			if(joueurs[target].life <= 0) // La cible meurt
+			if(joueurs[target].life <= 0) // Target dies
 			{
 				joueurs[target].life = 0;
 				
@@ -247,79 +261,59 @@ io.sockets.on('connection', function (socket) {
 				// augmenter le score
 			}
 			
-			if(joueurs[socket.cellule].life <= 0) // L'attaquant meurt ( normalement, impossible )
+			if(joueurs[socket.cellule].life <= 0) // The attacker dies ( actually impossible... but why not? )
 			{
 				joueurs[socket.cellule].life = 0;
 				player_death(socket.cellule,target);
 			}
-		
-		/* DEBUG
-		console.log("Etat actuel de la partie : ");
-		console.log(joueurs);
-		*/
 			
 		}
 		
 	});
 	
-	
-	
-	
-	
-	// Déconnexion d'un client
-	socket.on('disconnect',function(){
-		/*console.log("Client Disconnection"); DEBUG */
-	});
-	
-	/* Un joueur meurt
-	Il faut en avertir les autres ( log + position sur map )
-	Il faut l'éliminer de la liste des joueurs
-	*/
 
+	
 	function player_death(cellule_victime,cellule_assassin)
 	{
-		// Gestion du tableau des scores plus tard
-		
 
-
-		if(cellule_assassin==undefined)
+		if(cellule_assassin==undefined) // Natural death
 		{
 			socket.broadcast.emit('someone_died',{
 			mort:joueurs[cellule_victime],
 			position:cellule_victime
-			}); // On envoie les infos à tout le monde
+			}); // Warn everybody
 
 			socket.emit('someone_died',{
 			mort:joueurs[cellule_victime],
 			position:cellule_victime
-			}); // On envoie les infos au mort
+			}); // Warn the dead player
 
 			
-			console.log(joueurs[cellule_victime].pseudo + " est mort.");
+			console.log((joueurs[cellule_victime].pseudo + " died.").white);
 		}
-		else
+		else // Someone killed
 		{
 			socket.broadcast.emit('someone_killed',{
 			mort:joueurs[cellule_victime],
 			position:cellule_victime,
 			pseudo_assassin:joueurs[cellule_assassin].pseudo
-			}); // On envoie les infos du mort au mort, qui se reconnaîtra	
+			});
 
 			socket.emit('someone_killed',{
 			mort:joueurs[cellule_victime],
 			position:cellule_victime,
 			pseudo_assassin:joueurs[cellule_assassin].pseudo
-			}); // On envoie les infos du mort à l'assassin
+			});
 			
 			
-			console.log(joueurs[cellule_victime].pseudo + " s'est fait assassiner par "+joueurs[cellule_assassin].pseudo+".");			
+			console.log((joueurs[cellule_victime].pseudo + " was killed by "+joueurs[cellule_assassin].pseudo+".").white);			
 		}
 		
 		// On l'élimine de la liste
 		joueurs[cellule_victime] = undefined;
 
 		nbJoueurs--;
-		console.log("Nombre de Joueurs actuel : "+nbJoueurs);
+		console.log(('Current number of players : ' + nbJoueurs).data);
 		
 	}
 	

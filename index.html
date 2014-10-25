@@ -7,6 +7,8 @@
 		<script src="https://code.jquery.com/ui/1.10.1/jquery-ui.min.js"></script>
 		<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 		
+
+		
 		<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
 		
 		<!--[if lt IE 9]>
@@ -78,7 +80,7 @@
 			var byDefaultNickname = getQuerystring('nickname');
 			
 			var playerNickname = prompt('Welcome to the Arena, Time Lord, what is your Name ?',byDefaultNickname);
-			var cellule = -1;
+			var playerCell = -1;
 			
 			socket.emit('player_authentication', playerNickname);
 			
@@ -155,7 +157,6 @@
 					
 			});
 
-
 			socket.on('someone_died', function(infos){
 				if(infos.position == playerCell)
 				{
@@ -173,7 +174,7 @@
 
 			
 			socket.on('someone_killed', function(infos){
-				if(infos.position == cellule)
+				if(infos.position == playerCell)
 				{
 					alert(" KABUM ! Game Over ! \n Savagely killed par "+infos.pseudo_assassin+" ! \n We'll remember your name... \n Score : "+infos.mort.score+"");
 					
@@ -210,31 +211,36 @@
 			
         </script>
 
+
 		<script type="text/javascript">
-			
+
 			/*
 				Animations and Design
 			*/
-			
+
 			/* Color animation when hover a cell */
 			$("td").mouseenter(function()
 			{
 				theId = $(this).attr("id");
 				if(document.getElementById(theId).textContent.length==0)
 				{
-					$(this).animate({backgroundColor: "#f0d7fa"}, 150);
+					$(this).stop();
+					$(this).animate({backgroundColor: "#f0d7fa"}, 400);
 				}
 				else
 				{
-					$(this).animate({backgroundColor: "#ffd7f0"}, 150);
+					$(this).stop();
+					$(this).animate({backgroundColor: "#fe3790"}, 400);
 				}
 			});
 			$("td").mouseleave(function()
 			{
-				$(this).animate({backgroundColor: "#FFFFFF"}, 100);
+
+				$(this).animate({backgroundColor: "#FFFFFF"}, 150);
 			});
+
+
 		</script>
-		
 		
     </body>
 </html>
