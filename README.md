@@ -31,6 +31,7 @@ Time Wars
 
 * Database integration ( SQLite ? )
 * Graphical Lifebar integration instead of textual lifebar
+* Add a reload time + Graphical reload spinner : http://anthonyterrien.com/knob/
 * Hall of fame Page
 * Rules, about Pages
 * administration and events Page
@@ -41,4 +42,4 @@ Time Wars
 * Random Events
 * A lot of fixes
 * Overstep maximum amount of players fix
-* Full cleaning of the code
+* Full clean of the code

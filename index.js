@@ -260,7 +260,7 @@ io.sockets.on('connection', function (socket) {
 			{
 				joueurs[target].life = 0;
 				
-				socket.emit('message',"Vous avez assassiné le seigneur "+joueurs[target].pseudo+".");
+				socket.emit('message',"You have eliminated "+joueurs[target].pseudo+".");
 				player_death(target,socket.cellule);
 				
 
