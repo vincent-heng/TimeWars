@@ -5,28 +5,63 @@
         <title>Time Wars</title>
 		<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 		<script src="https://code.jquery.com/ui/1.10.1/jquery-ui.min.js"></script>
-		<script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+		<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 		
 		<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+		
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+			<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+		<![endif]-->
+		
+		
 		<link href="design/style.css" rel="stylesheet">
         <script src="/socket.io/socket.io.js"></script>
-
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
  
     <body>
 	
-		<div id="right_panel"><h2>Score board :</h2>Fox : 42 points</div>
-		
-        <h1>Time Wars <span class="pseudo"></span></h1>
+	<!-- HUD -->
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Time Wars</a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Arena</a></li>
+            <li><a href="#rules">Rules</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#scoreboard">Hall of Fame</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>	
+	
+	<div class="container" id="page">
+	
+        <h1><span class="pseudo"></span></h1>
 
 		<table id="map"></table>
 		
-		<div id="consolebox">
+		<div id="consolebox" class="well">
 			<p id="log"></p>
 		</div>
-		
-		<div id="version">Alpha</div>
+	
 
+
+
+		
+		
+		
 		<script type="text/javascript">
 
 		
@@ -51,17 +86,19 @@
 				playerNickname = infos.moi.pseudo;
 				playerCell = infos.cellule;
 				
-				$(".pseudo").append(" - "+playerNickname);
+				$(".pseudo").append(playerNickname);
 			});
 			
 
 			
 			/* Displaying the map */
 			var cellID = 0;
-			for(i=0;i<5;i++)
+			var mapRow = 7; // TEMP
+			var mapLine = 7; // TEMP
+			for(i=0;i<mapLine;i++)
 			{
 				$("#map").append("<tr id='line"+i+"'>");
-				for(j=0;j<5;j++)
+				for(j=0;j<mapRow;j++)
 				{
 					$("#line"+i+"").append("<td id="+cellID+"></td>");
 					cellID++;
@@ -92,7 +129,7 @@
 			socket.on('load_map',function(joueurs){
 				
 				// Displays players on the map
-				for(i=0; i<25; i++)
+				for(i=0; i<(mapRow*mapLine); i++)
 				{
 					if(joueurs[i] != undefined)
 						$("#"+i).html(joueurs[i].pseudo+"<br/>Life : "+joueurs[i].life);

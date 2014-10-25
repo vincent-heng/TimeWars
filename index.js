@@ -13,7 +13,7 @@ var path = require('path');
 
 /* Constantes de jeu */
 var lifeTime = 20; // en secondes
-var nbCellules = 25; // 5x5
+var nbCellules = 49; // 7x7
 
 /* Variables de jeu */
 var nbJoueurs = 0;
